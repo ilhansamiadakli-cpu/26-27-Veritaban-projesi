@@ -1,51 +1,60 @@
-# 🏥 Veritabanı Yönetim Sistemleri - Ders Sonu Ödevi 1
+# 🏨 Otel Rezervasyon ve Konaklama Yönetim Sistemi
 
-Bu depo, **Veritabanı Yönetim Sistemleri** dersi kapsamında hazırlanan **Hastane Otomasyonu Prototipi** veritabanı tasarımını, ER (Varlık-İlişki) diyagramını ve MSSQL (T-SQL) şemasını içermektedir.
+Bu depo, **Veritabanı Yönetim Sistemleri** dersi dönem projesi kapsamında geliştirilen **Otel Rezervasyon ve Konaklama Yönetim Sistemi**'nin veritabanı mimarisini, backend API servislerini ve kullanıcı arayüzünü içermektedir.
 
 ---
 
 ## 👥 Proje Ekibi
-* **Yusuf Sercan İşçi**
-* **İlhan Sami Adaklı**
+* **Yusuf Sercan İşçi** - 455142
+* **İlhan Sami Adaklı** - [İlhan'ın Öğrenci Numarası]
 
 ---
 
-## 📌 Problem Tanımı ve İş Kuralları
-
-Ödev kapsamında belirtilen varlıklar (Hasta, Doktor, Poliklinik, Laboratuvar, Tahlil, Hemşire, Servis) ve kurallar doğrultusunda ilişkisel şema kurgulanmıştır:
-
-1. **Doktorlar & Poliklinikler (1:N):** Bir poliklinikte birden fazla doktor çalışabilir; bir doktor yalnızca tek bir polikliniğe bağlıdır.
-2. **Hastalar & Poliklinikler (N:M):** Hastalar polikliniklerde muayene olur. Bu çok-a-çok ilişki `Muayene` ara tablosu ile modellenmiş, gerçek hayat senaryosuna uygun olarak muayeneyi yapan `doktor_id` bilgisi de eklenmiştir.
-3. **Hastalar & Tahliller & Doktorlar (N:M):** Hastalar tahlil yaptırabilir ve bu tahlilleri doktorlar talep eder. Bu ilişki `Hasta_Tahlil` (İstem) ara tablosu üzerinden kurulmuştur.
-4. **Tahliller & Laboratuvarlar (1:N):** Tahliller laboratuvarlarda gerçekleştirilir; bir tahlil yalnızca bir laboratuvara aittir.
-5. **Hemşireler & Servisler (1:N):** Hemşireler servislerde görev alır. Bir serviste birden fazla hemşire çalışabilir ancak bir hemşire yalnızca tek bir servise hizmet verir.
-6. **Servisler & Poliklinikler (1:N):** Servisler polikliniklere bağlıdır. Bir polikliniğin birden fazla servisi bulunabilir.
+## 🛠️ Teknoloji Yığını (Tech Stack)
+* **Veritabanı (DBMS):** Microsoft SQL Server (MSSQL / T-SQL)
+* **Backend:** Spring Boot (Java) *(veya .NET / Flask - hangisini seçtiyseniz)*
+* **Frontend:** [React / Vue / HTML-CSS-JS]
+* **Veritabanı Tasarım Aracı:** dbdiagram.io
+* **API Test & Dokümantasyon:** Swagger / Postman
 
 ---
 
-## 🗺️ Varlık-İlişki (ER) Diyagramı
+## 📌 Proje Kapsamı ve Veritabanı Gereksinimleri
 
-Aşağıdaki şema **dbdiagram.io** üzerinde modellenmiş olup yabancı anahtarlar (FK) ve birincil anahtarlar (PK) ilişkileri görselleştirilmiştir:
+Proje, 3NF normalizasyon kurallarına uygun olarak tasarlanan ilişkisel şema üzerinde çalışmaktadır.
 
-![Hastane ER Diyagramı](hastane_er_diyagrami.png)
+### 1. Temel Tablolar (En az 13 Tablo)
+1. `OdaTipi`: Kapasite, açıklama, temel fiyat
+2. `Oda`: Numara, kat, oda tipi, durum (boş, dolu, temizlikte, bakımda)
+3. `SezonFiyati`: Oda tipi, başlangıç-bitiş tarihi, gecelik fiyat
+4. `Misafir`: Ad, soyad, TC/pasaport, telefon, e-posta, doğum tarihi
+5. `Kullanici`: Kimlik doğrulama, roller (misafir, resepsiyon, yönetici)
+6. `Personel`: Görev, işe giriş tarihi
+7. `Rezervasyon`: Tarihler, kişi sayısı, rezervasyon durumu
+8. `Konaklama`: Check-in / check-out gerçekleşme zamanları
+9. `EkHizmet`: Hizmet adı, birim fiyat
+10. `KonaklamaHizmeti`: Alınan ek hizmetler, adet, tarih
+11. `Odeme`: Tutar, ödeme türü, işlem tarihi
+12. `TemizlikKaydi`: Oda, görevli personel, temizlik durumu
+13. `IslemLog`: Tetikleyicilerle tutulan denetim günlüğü
 
 ---
 
-## 🛠️ Kullanılan Teknolojiler ve Standartlar
-
-* **Veritabanı Motoru:** Microsoft SQL Server (MSSQL / T-SQL)
-* **Yönetim Aracı:** SQL Server Management Studio (SSMS)
-* **Tasarım Aracı:** dbdiagram.io
-* **Veri Tipleri & Kurallar:**
-  * Kimlik alanlarında `IDENTITY(1,1)` ile otomatik artan tekil anahtarlar kullanılmıştır.
-  * Türkçe karakter uyumluluğu için metin alanlarında `NVARCHAR` standardı benimsenmiştir.
-  * T.C. Kimlik numarası `CHAR(11)` ve `UNIQUE` kısıtıyla korunmuştur.
-  * Tablolar arası bütünlük yabancı anahtar (`FOREIGN KEY`) kısıtları ile garanti altına alınmıştır.
+### 2. Kritik İş Kuralları & Veritabanı Nesneleri
+* **Çakışan Rezervasyon Engeli (TRIGGER):** Aynı odanın çakışan tarihlerde çift rezerve edilmesi veritabanı seviyesinde engellenir.
+* **Oda Durum Yönetimi (TRIGGER):** Check-in işleminde oda "dolu", check-out işleminde "temizlikte" yapılır.
+* **Denetim Günlüğü (TRIGGER):** Rezervasyon ve ödeme hareketleri `IslemLog` tablosuna otomatik loglanır.
+* **Saklı Prosedürler (STORED PROCEDURE):**
+  * Boş oda sorgulama (tarih aralığı ve oda tipine göre)
+  * Toplam konaklama tutarı hesaplama (sezon fiyatları + ek hizmetler)
+  * Aylık doluluk oranı ve gelir raporu üretme
+* **Görünümler (VIEW):** Günlük giriş/çıkış listesi ve oda temizlik takip ekranları.
+* **İşlem Güvenliği (TRANSACTION):** Check-out süreci tek bir transaction içinde işletilerek veri tutarlılığı güvenceye alınır (ROLLBACK/COMMIT).
 
 ---
 
-## 📂 Depo İçeriği
-
-* `hastane_er_diyagrami.png`: İlişkisel veritabanı mimarisini gösteren ER diyagramı.
-* `hastane_veritabani_semasi.sql`: Veritabanını, tabloları ve tüm kısıtları oluşturan çalıştırılabilir T-SQL betiği.
-
+## 📂 Dizin Yapısı
+* `/odev1`: Ders sonu ödevi (Hastane Otomasyonu ER Şeması ve SQL betikleri)
+* `/database`: Otel projesine ait DDL betikleri, Trigger, Stored Procedure ve örnek test verileri
+* `/backend`: REST API kaynak kodları
+* `/frontend`: Kullanıcı ve yönetim paneli arayüz kodları
