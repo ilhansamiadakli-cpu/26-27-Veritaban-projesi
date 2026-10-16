@@ -1,4 +1,3 @@
--- 1. Veritabaný oluþturma
 CREATE DATABASE HastaneOtomasyonu;
 GO
 
@@ -13,7 +12,6 @@ CREATE TABLE Poliklinik (
 );
 GO
 
--- 3. Doktor Tablosu (Kural 1: Poliklinik - Doktor 1:N)
 CREATE TABLE Doktor (
     doktor_id INT IDENTITY(1,1) PRIMARY KEY,
     ad NVARCHAR(50) NOT NULL,
@@ -24,7 +22,6 @@ CREATE TABLE Doktor (
 );
 GO
 
--- 4. Hasta Tablosu
 CREATE TABLE Hasta (
     hasta_id INT IDENTITY(1,1) PRIMARY KEY,
     tc_no CHAR(11) NOT NULL UNIQUE,
@@ -35,7 +32,6 @@ CREATE TABLE Hasta (
 );
 GO
 
--- 5. Servis Tablosu (Kural 6: Poliklinik - Servis 1:N)
 CREATE TABLE Servis (
     servis_id INT IDENTITY(1,1) PRIMARY KEY,
     servis_adi NVARCHAR(100) NOT NULL,
@@ -45,7 +41,6 @@ CREATE TABLE Servis (
 );
 GO
 
--- 6. Hemsire Tablosu (Kural 5: Servis - Hemsire 1:N)
 CREATE TABLE Hemsire (
     hemsire_id INT IDENTITY(1,1) PRIMARY KEY,
     ad NVARCHAR(50) NOT NULL,
@@ -56,12 +51,11 @@ CREATE TABLE Hemsire (
 );
 GO
 
--- 7. Muayene Tablosu (Kural 2: Hasta ile Poliklinik/Doktor N:M iliþkisinin ara tablosu)
 CREATE TABLE Muayene (
     muayene_id INT IDENTITY(1,1) PRIMARY KEY,
     hasta_id INT NOT NULL,
     poliklinik_id INT NOT NULL,
-    doktor_id INT NULL, -- Usta tavsiyesi: Muayeneyi yapan doktoru da bilmek gerçek hayatta þarttýr
+    doktor_id INT NULL,
     muayene_tarihi DATETIME NOT NULL DEFAULT GETDATE(),
     tani NVARCHAR(MAX),
     CONSTRAINT FK_Muayene_Hasta FOREIGN KEY (hasta_id) REFERENCES Hasta(hasta_id),
@@ -70,7 +64,6 @@ CREATE TABLE Muayene (
 );
 GO
 
--- 8. Laboratuvar Tablosu
 CREATE TABLE Laboratuvar (
     lab_id INT IDENTITY(1,1) PRIMARY KEY,
     lab_adi NVARCHAR(100) NOT NULL,
@@ -78,7 +71,6 @@ CREATE TABLE Laboratuvar (
 );
 GO
 
--- 9. Tahlil Tablosu (Kural 4: Laboratuvar - Tahlil 1:N)
 CREATE TABLE Tahlil (
     tahlil_id INT IDENTITY(1,1) PRIMARY KEY,
     tahlil_adi NVARCHAR(100) NOT NULL,
@@ -88,7 +80,6 @@ CREATE TABLE Tahlil (
 );
 GO
 
--- 10. Hasta_Tahlil Tablosu (Kural 3: Hastalar tahlil yaptýrýr, doktorlar ister N:M)
 CREATE TABLE Hasta_Tahlil (
     istem_id INT IDENTITY(1,1) PRIMARY KEY,
     hasta_id INT NOT NULL,
