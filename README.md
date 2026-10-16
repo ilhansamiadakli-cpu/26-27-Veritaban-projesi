@@ -11,9 +11,9 @@ Bu depo, **Veritabanı Yönetim Sistemleri** dersi dönem projesi kapsamında ge
 ---
 
 ## 🛠️ Teknoloji Yığını (Tech Stack)
-* **Veritabanı (DBMS):** Microsoft SQL Server (MSSQL / T-SQL)
-* **Backend:** Spring Boot (Java) 
-* **Frontend:** [React / Vue / HTML-CSS-JS]
+* **Veritabanı (DBMS):** MySQL Server 8.0 & MySQL Workbench
+* **Backend:** Spring Boot (Java)
+* **Frontend:** [HTML5, CSS3, JavaScript / React]
 * **Veritabanı Tasarım Aracı:** dbdiagram.io
 * **API Test & Dokümantasyon:** Swagger / Postman
 
