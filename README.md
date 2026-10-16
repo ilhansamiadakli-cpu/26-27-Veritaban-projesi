@@ -5,8 +5,8 @@ Bu depo, **Veritabanı Yönetim Sistemleri** dersi dönem projesi kapsamında ge
 ---
 
 ## 👥 Proje Ekibi
-* **Yusuf Sercan İşçi** 
-* **İlhan Sami Adaklı**
+* **Yusuf Sercan İşçi** - 455142 
+* **İlhan Sami Adaklı** - 455116
 
 ---
 
