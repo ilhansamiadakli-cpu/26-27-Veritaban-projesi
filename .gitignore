@@ -1,0 +1,25 @@
+# Java & Spring Boot
+target/
+*.class
+*.jar
+*.war
+.mvn/
+
+# Frontend (Node / React)
+node_modules/
+dist/
+build/
+.env
+.env.local
+
+# Veritabanı Yedek & Log Dosyaları
+*.bak
+*.mdf
+*.ldf
+
+# IDE & İşletim Sistemi Dosyaları
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
