@@ -34,6 +34,7 @@ Kavramsal modellemede **Chen notasyonu** kullanılmıştır:
 
 Chen ER diyagramından dönüştürülen fiziksel tablolar, birincil anahtarlar (PK) ve yabancı anahtar (FK) bağlantıları aşağıda modellenmiştir:
 
+![Hastane ER Diyagramı](hastane_er_diyagrami.png)
 
 
 > **Tasarım Notu:** Ödev kuralında Hasta–Poliklinik arası **N:M** (`Muayene`) ilişkisi tanımlanmıştır. Gerçek hastane işleyişinde muayeneyi gerçekleştiren hekimin de izlenebilmesi adına `Muayene` tablosuna opsiyonel (`NULL` geçilebilir) `doktor_id` yabancı anahtarı ek bir tasarım kararı olarak dahil edilmiştir.
