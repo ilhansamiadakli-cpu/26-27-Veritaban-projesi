@@ -3,6 +3,7 @@
 Bu depo, **Veritabanı Yönetim Sistemleri** dersi kapsamında hazırlanan **Hastane Otomasyonu Prototipi** veritabanı tasarımını, klasik **Chen Varlık-İlişki (ER) diyagramını**, **İlişkisel Tablo Şemasını (dbdiagram)** ve **MSSQL (T-SQL)** betiğini içermektedir.
 
 ## 👥 Proje Ekibi
+
 * **Yusuf Sercan İşçi** - 455142
 * **İlhan Sami Adaklı** - 455116
 
@@ -22,6 +23,7 @@ Bu depo, **Veritabanı Yönetim Sistemleri** dersi kapsamında hazırlanan **Has
 ## 📐 1. Klasik Varlık-İlişki (Chen ER) Diyagramı
 
 Kavramsal modellemede **Chen notasyonu** kullanılmıştır:
+
 * **Dikdörtgenler:** Varlık kümelerini (`HASTA`, `POLİKLİNİK`, `DOKTOR`, `SERVİS`, `HEMŞİRE`, `TAHLİL`, `LABORATUVAR`) temsil eder.
 * **Baklava Dilimleri (Eşkenar Dörtgenler):** Varlıklar arasındaki ilişkileri (`ÇALIŞIR`, `MUAYENE OLUR`, `TAHLİL İSTER`, `YAPILIR`, `GÖREV YAPAR`, `AİTTİR`) ve iki uçtaki kardinaliteleri (**1 / N / M**) gösterir.
 * **Elipsler:** Her varlığın ve N:M ara tabloların (`Muayene`, `Hasta_Tahlil`) özniteliklerini gösterir; **birincil anahtarlar (PK) altı çizili** olarak belirtilmiştir.
